@@ -4,20 +4,20 @@
 
 // Use HALFSTEP for smoother/quieter 28BYJ-48 (most common choice)
 // Use FULLSTEP if you need max torque instead
-#define HALFSTEP 8
-//#define FULLSTEP 4   // uncomment if preferred
+//#define HALFSTEP 8
+#define FULLSTEP 4   // uncomment if preferred
 
 #define DIRA 32
 #define DIRB 33
 
 // 2048 steps/rev in FULLSTEP mode
 // 4096 steps/rev in HALFSTEP mode
-const long STEPS_PER_REV = 4096;   // ← use 2048 if you switch to FULLSTEP
+const long STEPS_PER_REV = 2048; // ← use 4096 if you switch to HALFSTEP
 const char *ssid = "Monkey";
 const char *password = "monkenet";
 const int TRIG_PIN = 5;     // HC-SR04 Trigger
 const int ECHO_PIN = 19;    // HC-SR04 Echo (after voltage divider)
-const int motorSpeed = 1000;
+const int motorSpeed = 600;
 
 // setup
 int step1[] = {13,14,27,26};
@@ -27,9 +27,9 @@ int motorDirection = 1;   // 1 = forward, -1 = reverse
 int movementMode = 0; // 0 = stop, 1 = forward, 2 = turn left
 
 // Motor 1 on pins 4,6,5,7 (IN1, IN3, IN2, IN4 order — important!)
-AccelStepper stepper1(HALFSTEP, 13, 27, 14, 26);
+AccelStepper stepper1(FULLSTEP, 13, 27, 14, 26);
 // Motor 2
-AccelStepper stepper2(HALFSTEP, 4, 17, 16, 18);
+AccelStepper stepper2(FULLSTEP, 4, 17, 16, 18);
 
 
 WiFiServer server(80); //create a server
