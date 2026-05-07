@@ -24,7 +24,7 @@ int step1[] = {13,14,27,26};
 int step2[] = {4,16,17,18};
 int arrsize = sizeof(step1)/sizeof(step1[0]);
 int motorDirection = 1;   // 1 = forward, -1 = reverse
-int movementMode = 0; // 0 = stop, 1 = forward, 2 = turn left
+int movementMode = 0; // 0 = stop, 1 = forward, 2 = turn left, 3 = turn right
 
 // Motor 1 on pins 4,6,5,7 (IN1, IN3, IN2, IN4 order — important!)
 AccelStepper stepper1(FULLSTEP, 13, 27, 14, 26);
@@ -132,6 +132,11 @@ void updateMotors() {
       stepper1.setSpeed(motorSpeed);
       stepper2.setSpeed(motorSpeed);
       break;
+    
+    case 3: // turn right
+      stepper1.setSpeed(-motorSpeed);
+      stepper2.setSpeed(-motorSpeed);
+      break;
   }
 }
 
@@ -194,6 +199,11 @@ void loop() {
 
   if (request.indexOf("/LEFT") != -1) {
     movementMode = 2;
+    updateMotors();
+  }
+
+  if (request.indexOf("/LEFT") != -1) {
+    movementMode = 3;
     updateMotors();
   }
  
